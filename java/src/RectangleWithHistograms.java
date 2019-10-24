@@ -31,15 +31,20 @@ public class RectangleWithHistograms {
         // Once the loop is over, pop back all elements and calculate only one area
         // as the area of the current index is 0 (Current index out of array)
         while (!stack.isEmpty()) {
+            int area;
             int popped = stack.pop();
-            int area = (arr.length - popped) * arr[popped];
+            if (stack.isEmpty()) {
+                area = (arr.length) * arr[popped];
+            } else {
+                area = (arr.length - stack.peek() - 1) * arr[popped];
+            }
             if (largestArea < area) largestArea = area;
         }
         return largestArea;
     }
 
     public static void main(String[] args) {
-        int[] a = {3, 3, 0, 7};
+        int[] a = {3, 1, 3, 2, 2};
         int area = findMaxAreaRect(a);
         System.out.println(area);
     }
