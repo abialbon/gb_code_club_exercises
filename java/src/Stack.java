@@ -23,7 +23,7 @@ public class Stack<T> {
 
     public T pop() {
         T item = (T) head.item;
-        Node temp = head.next;
+        Node temp = head.next == null? tail: head.next;
         head = temp;
         --length;
         return item;
