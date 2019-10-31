@@ -14,7 +14,7 @@ public class BracketMatcher {
     }
 
     public static void main(String[] args) {
-        String test = "(this is)()(())(did not)";
+        String test = "(this is)()(())(did not)(";
         System.out.println(checkBrackets(test));
     }
 }
