@@ -23,9 +23,10 @@ public class Stack<T> {
 
     public T pop() {
         T item = (T) head.item;
-        Node temp = head.next == null? tail: head.next;
+        Node temp = head.next;
         head = temp;
         --length;
+        if (length == 0) tail = null;
         return item;
     }
 
@@ -41,10 +42,7 @@ public class Stack<T> {
         Stack<Integer> s = new Stack<Integer>();
         s.push(10);
         s.push(20);
-        System.out.println(s.pop());
-        System.out.println(s.isEmpty());
-        System.out.println(s.peek());
-        System.out.println(s.pop());
-        System.out.println(s.isEmpty());
+        s.pop();
+        s.pop();
     }
 }
