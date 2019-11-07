@@ -3,8 +3,8 @@
 
 using namespace std;
 
-stack<int> sortStack(stack<int> *);
-void transferStackTops(stack<int> *, stack<int> *);
+stack<int> sortStack(stack<int> &);
+void transferStackTops(stack<int> &, stack<int> &);
 void printStack(stack<int>);
 
 int main() {
@@ -12,22 +12,22 @@ int main() {
     stack<int> s;
     for (int i = 0; i < 10; ++i) s.push(test[i]);
     printStack(s);
-    printStack(sortStack(&s)); 
+    printStack(sortStack(s)); 
     return 0;
 }
 
-stack<int> sortStack(stack<int> *s) {
+stack<int> sortStack(stack<int> &s) {
     stack<int> aux;
-    while (!s->empty()) {
+    while (!s.empty()) {
         // ---------------------------------------------
         // Continue till s is empty
-        if (aux.empty() || aux.top() >= s->top()) {
-            transferStackTops(s, &aux);
+        if (aux.empty() || aux.top() >= s.top()) {
+            transferStackTops(s, aux);
         } else {
-            int popped = s->top();
-            s->pop();
+            int popped = s.top();
+            s.pop();
             while (!aux.empty() && aux.top() < popped) {
-                transferStackTops(&aux, s);
+                transferStackTops(aux, s);
             }
             aux.push(popped);
         }
@@ -36,9 +36,9 @@ stack<int> sortStack(stack<int> *s) {
     return aux;
 }
 
-void transferStackTops(stack<int> *from, stack<int> *to) {
-    to->push(from->top());
-    from->pop();
+void transferStackTops(stack<int> &from, stack<int> &to) {
+    to.push(from.top());
+    from.pop();
 }
 
 void printStack(stack<int> s) {
