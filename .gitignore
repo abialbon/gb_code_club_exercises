@@ -4,3 +4,5 @@ out
 *.class
 vcs.xml
 *.out
+cmake-build-debug
+*.txt
