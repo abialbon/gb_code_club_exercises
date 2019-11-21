@@ -10,7 +10,7 @@ string words[] = { "", "one", "two", "three", "four", "five", "six", "seven", "e
                    "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"};
 
 string big_words[] = {"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
-string group_words[] = { "", "thousand", "million", "billion", "trillion"};
+string group_words[] = { "", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", "octillion"};
 
 string three_digit_parser(string num, const string &group)
 {
@@ -29,22 +29,22 @@ string three_digit_parser(string num, const string &group)
     }
 
     if (!h.empty() && stoi(h) > 0) {
-        h = words[stoi(h)] + " hundred ";
+        h = words[stoi(h)] + " hundred";
     } else {
         h = "";
     }
     if (group.empty())
-        return h + "and " + num;
-    return h + num + " " + group + " ";
+        return h + " and " + num;
+    return h + " " + num + " " + group + " ";
 }
 
-string sign_specifier(int n)
+string sign_specifier(long n)
 {
     if (n < 0) return "minus ";
     return "";
 }
 
-string num_parser(int n)
+string num_parser(long n)
 {
     string num = n < 0 ? to_string(-n) : to_string(n);
     string output;
@@ -62,12 +62,12 @@ string num_parser(int n)
     return output;
 }
 
-string num_str(int n) {
+string num_str(long n) {
     return sign_specifier(n) + num_parser(n);
 }
 
 int main() {
-    int n = 1'000'000'000;
+    long n = 7'546'742'741'956'464'598;
     cout << num_str(n) << endl;
     return 0;
 }
