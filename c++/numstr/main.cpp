@@ -20,18 +20,17 @@ string three_digit_parser(string num, const string &group)
         h = num.substr(0, 1);
         num = num.substr(1, 2);
     }
+    if (!h.empty() && stoi(h) > 0) {
+        h = words[stoi(h)] + " hundred";
+    } else {
+        h = "";
+    }
     if (stoi(num) <= 20) {
         num = words[stoi(num)];
     } else {
         string f = num.substr(0, 1);
         string s = num.substr(1, 1);
         num = big_words[stoi(f)] + " " + words[stoi(s)];
-    }
-
-    if (!h.empty() && stoi(h) > 0) {
-        h = words[stoi(h)] + " hundred";
-    } else {
-        h = "";
     }
     if (group.empty())
         return h + " and " + num;
@@ -51,10 +50,8 @@ string num_parser(long n)
     unsigned short first_group = num.length() % 3;
     bool leading = (bool) first_group;
     unsigned short no_groups = num.length() / 3 + (bool) first_group;
-
     if (first_group)
         output += three_digit_parser(num.substr(0, first_group), group_words[no_groups - 1]);
-
 
     for (int i = 0; i < (no_groups - leading); ++i) {
         output += three_digit_parser(num.substr(first_group + (3 * i), 3), group_words[no_groups - leading - i - 1]);
@@ -67,7 +64,7 @@ string num_str(long n) {
 }
 
 int main() {
-    long n = 7'546'742'741'956'464'598;
+    long n = 532'789'100'114;
     cout << num_str(n) << endl;
     return 0;
 }
