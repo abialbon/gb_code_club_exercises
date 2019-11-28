@@ -12,51 +12,16 @@
 
 using namespace std;
 
-enum class STATUS {
-    STARTING,
-    GOING_UP,
-    GOING_DOWN,
-    GOING_LEFT,
-    GOING_RIGHT,
-    COMPLETED
-};
 
-bool search(int arr[m][n], int row, int column, int x)
+
+bool search(int arr[m][n], int row, int column, int lo, int hi, int x)
 {
-    STATUS status = STATUS::STARTING;
-    int r = row / 2;
-    while (status != STATUS::COMPLETED) {
-        if (arr[r][0] == x) return true;
-        else if (arr[r][0] > x) {
-            if (r == 0) break;
-            if (status == STATUS::STARTING) status = STATUS::GOING_DOWN;
-            if (status == STATUS::GOING_UP) break;
-            r = r / 2;
-        } else {
-            if (r == row - 1) break;
-            if (status == STATUS::STARTING) status = STATUS::GOING_UP;
-            if (status == STATUS::GOING_DOWN) break;
-            r += r / 2;
-        }
-    }
-
-    status = STATUS::STARTING;
-    int c = column / 2;
-    while (status != STATUS::COMPLETED) {
-        if (arr[r][c] == x) return true;
-        else if (arr[r][c] > x) {
-            if (c == 0) break;
-            if (status == STATUS::STARTING) status = STATUS::GOING_LEFT;
-            if (status == STATUS::GOING_RIGHT) break;
-            c = c / 2;
-        } else {
-            if (c == column - 1) break;
-            if (status == STATUS::STARTING) status = STATUS::GOING_RIGHT;
-            if (status == STATUS::GOING_LEFT) break;
-            c += c / 2;
-        }
-    }
-    return false;
+    if (lo == hi && arr[lo / column][lo % column] != x) return false;
+    int mid = lo + ((hi - lo) / 2);
+    int r = mid / column, c = mid % column;
+    if (arr[r][c] == x) return true;
+    else if (arr[r][c] > x) return search(arr, row, column, lo, mid - 1, x);
+    else return search(arr, row, column, mid + 1, hi, x);
 }
 
 int main() {
@@ -68,6 +33,6 @@ int main() {
             {82, 84, 87, 89, 91, 93},
     };
 
-    cout << search(arr, 5, 6, 2) << endl;
+    cout << search(arr, m, n,0, m*n, 9) << endl;
     return 0;
 }
